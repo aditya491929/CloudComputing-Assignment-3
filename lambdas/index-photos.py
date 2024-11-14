@@ -33,6 +33,7 @@ def lambda_handler(event, context):
     bucket = record['s3']['bucket']['name']
     key = record['s3']['object']['key']
     print(f'BUCKET: {bucket} ; KEY: {key}')
+
     # detect the labels of current image
     labels = rek.detect_labels(
         Image={
@@ -46,7 +47,7 @@ def lambda_handler(event, context):
 
     metadata_response = s3.head_object(Bucket=bucket, Key=key)
     print(f'Metadata : {metadata_response}')
-    custom_labels = metadata_response['Metadata'].get('x-amz-meta-customlabels', '')
+    custom_labels = metadata_response['Metadata'].get('customlabels', '')
     print(f'Custom Labels : {custom_labels}')
     custom_labels_list = custom_labels.split(',') if custom_labels else []
 
@@ -62,7 +63,7 @@ def lambda_handler(event, context):
         obj["labels"].append(label['Name'])
 
     if len(custom_labels_list):
-        obj["labels"] = list(set(labels + custom_labels_list))
+        obj['labels'].extend(custom_labels_list)
 
     print(f"JSON OBJECT : {obj}")
     

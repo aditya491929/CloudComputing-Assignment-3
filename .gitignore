@@ -1,1 +1,3 @@
 opensearch_layer/python/*
+pillow-layer/python/*
+requests_layer/python/*
