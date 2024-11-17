@@ -22,7 +22,7 @@ def get_url(index, type):
 
 def lambda_handler(event, context):
     print(f"S3 PUT EVENT : {json.dumps(event)}")
-    print('testing')
+    print('testing123')
     headers = { "Content-Type": "application/json" }
     rek = boto3.client('rekognition', region_name='us-east-1')
     s3 = boto3.client('s3')
