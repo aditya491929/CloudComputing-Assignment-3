@@ -1,8 +1,6 @@
 import json
 import boto3
 import os
-import sys
-import uuid
 from datetime import *
 from opensearchpy import OpenSearch, RequestsHttpConnection
 
